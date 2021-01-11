@@ -34,6 +34,17 @@ public class CorsIT {
         System.setProperty("sun.net.http.allowRestrictedHeaders", "true");
     }
 
+    @Test
+    public void testSimpleCorsRequest() throws IOException {
+    	
+    	HttpURLConnection connection = HttpUtils.sendRequest(
+    			pathToHost + "configurations/simple" , "GET" , TestData.simpleRequestHeaders );
+    	
+    	checkCorsResponse( connection , TestData.simpleRequestHeaders );
+    	printResponseHeaders( connection, "Simple CORS Request" );
+    	
+    }
+    
     public void checkCorsResponse(HttpURLConnection connection,
                             Map<String, String> expectedHeaders) throws IOException {
         assertEquals(200, connection.getResponseCode(), "Invalid HTTP response code");
